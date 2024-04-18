@@ -40,14 +40,12 @@ declare const TransformFooService: {
 declare const makeTransformFooService: () => Promise<TransformFooService>;
 
 // usecases
-export const createFooUseCase: RTE<FooRepositoryAccess, Error, Foo> = pipe(
+export const createFooUseCase = pipe(
   rte.of(Foo.make()),
   rte.tap(FooRepository.store)
 );
 
-export const transformFooUseCase: (
-  id: string
-) => RTE<FooRepositoryAccess & TransformFooServiceAccess, Error, void> = (id) =>
+export const transformFooUseCase = (id: string) =>
   pipe(
     FooRepository.getById(id),
     rte.flatMap(TransformFooService.transform),

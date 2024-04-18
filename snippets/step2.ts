@@ -55,14 +55,12 @@ const TransformFooService = portToEffect(TransformFooServiceFpts, {
 declare const makeTransformFooService: () => Promise<TransformFooService>;
 
 // usecases
-export const createFooUseCase: RTE<FooRepositoryAccess, Error, Foo> = pipe(
+export const createFooUseCase = pipe(
   rte.of(Foo.make()),
   rte.tap(FooRepositoryFpts.store)
 );
 
-export const transformFooUseCase: (
-  id: string
-) => Effect.Effect<void, Error, FooRepository | TransformFooService> = (id) =>
+export const transformFooUseCase = (id: string) =>
   FooRepository.getById(id).pipe(
     Effect.flatMap(TransformFooService.transform),
     Effect.flatMap(FooRepository.store)
