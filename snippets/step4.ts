@@ -1,4 +1,4 @@
-import { Context, Effect } from "effect";
+import { Context, Effect, Layer, ManagedRuntime } from "effect";
 import * as rte from "fp-ts/ReaderTaskEither";
 import type { ReaderTaskEither as RTE } from "fp-ts/ReaderTaskEither";
 import { pipe } from "fp-ts/function";
@@ -27,7 +27,7 @@ const FooRepositoryFpts = portToFpts(FooRepository, {
   fooRepository: FooRepositoryTag,
 });
 
-declare const makeFooRepository: () => Promise<FooRepository>;
+declare const FooRepositoryLive: Layer.Layer<FooRepository>;
 
 interface TransformFooService {
   transform: (foo: Foo) => Effect.Effect<Foo, Error>;
@@ -47,7 +47,7 @@ const TransformFooServiceFpts = portToFpts(TransformFooService, {
   fooRepository: FooRepositoryTag,
 });
 
-declare const makeTransformFooService: () => Promise<TransformFooService>;
+declare const TransformFooServiceLive: Layer.Layer<TransformFooService>;
 
 // usecases
 export const createFooUseCase: RTE<FooRepositoryAccess, Error, Foo> = pipe(
@@ -68,12 +68,20 @@ export const transformFooUseCaseFpts = effectToFpts(transformFooUseCase, {
 
 // program
 const main = async () => {
-  const fooRepository = await makeFooRepository();
-  const transformFooService = await makeTransformFooService();
-  await transformFooUseCaseFpts("my-foo-id")({
-    transformFooService,
-    fooRepository,
-  })();
+  const runtime = ManagedRuntime.make(
+    Layer.mergeAll(FooRepositoryLive, TransformFooServiceLive)
+  );
+
+  await runtime.runPromise(transformFooUseCase("my-foo-id"));
+
+  const { context } = await runtime.runtime();
+
+  const services = contextToFpts(context, {
+    fooRepository: FooRepositoryTag,
+    transformFooService: TransformFooServiceTag,
+  });
+
+  await createFooUseCase(services)();
 };
 main();
 
@@ -132,4 +140,14 @@ declare const portToFpts: <P, M>(
         A
       >
     : never;
+};
+
+declare const contextToFpts: <C, M>(
+  ctx: C,
+  mapping: M
+) => {
+  [k in keyof M]: Context.Tag.Identifier<
+    // @ts-expect-error "M[k] is not a Tag.."
+    M[k]
+  >;
 };
