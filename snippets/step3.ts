@@ -11,51 +11,46 @@ class Foo {
 
 // ports & adpaters
 interface FooRepository {
-  getById: (id: string) => RTE<unknown, Error, Foo>;
-  store: (foo: Foo) => RTE<unknown, Error, void>;
+  getById: (id: string) => Effect.Effect<Foo, Error>;
+  store: (foo: Foo) => Effect.Effect<void, Error>;
 }
 
 interface FooRepositoryAccess {
   fooRepository: FooRepository;
 }
 
-declare const FooRepositoryFpts: {
-  getById: (id: string) => RTE<FooRepositoryAccess, Error, Foo>;
-  store: (foo: Foo) => RTE<FooRepositoryAccess, Error, void>;
-};
-
 const FooRepositoryTag = Context.GenericTag<FooRepository>("FooRepository");
 
-const FooRepository = portToEffect(FooRepositoryFpts, {
+const FooRepository = Effect.serviceFunctions(FooRepositoryTag);
+
+const FooRepositoryFpts = portToFpts(FooRepository, {
   fooRepository: FooRepositoryTag,
 });
 
 declare const makeFooRepository: () => Promise<FooRepository>;
 
 interface TransformFooService {
-  transform: (foo: Foo) => RTE<unknown, Error, Foo>;
+  transform: (foo: Foo) => Effect.Effect<Foo, Error>;
 }
 
 interface TransformFooServiceAccess {
   transformFooService: TransformFooService;
 }
 
-declare const TransformFooServiceFpts: {
-  transform: (foo: Foo) => RTE<TransformFooServiceAccess, Error, Foo>;
-};
-
 const TransformFooServiceTag = Context.GenericTag<TransformFooService>(
   "TransformFooService"
 );
 
-const TransformFooService = portToEffect(TransformFooServiceFpts, {
-  transformFooService: TransformFooServiceTag,
+const TransformFooService = Effect.serviceFunctions(TransformFooServiceTag);
+
+const TransformFooServiceFpts = portToFpts(TransformFooService, {
+  fooRepository: FooRepositoryTag,
 });
 
 declare const makeTransformFooService: () => Promise<TransformFooService>;
 
 // usecases
-export const createFooUseCase = pipe(
+export const createFooUseCase: RTE<FooRepositoryAccess, Error, Foo> = pipe(
   rte.of(Foo.make()),
   rte.tap(FooRepositoryFpts.store)
 );
@@ -118,3 +113,23 @@ declare const effectToFpts: <F, M>(
       A
     >
   : never;
+
+declare const portToFpts: <P, M>(
+  port: P,
+  mapping: M
+) => {
+  [k in keyof P]: P[k] extends (
+    ...args: infer Args
+  ) => Effect.Effect<infer A, infer E, infer Env>
+    ? (...args: Args) => RTE<
+        {
+          [k in keyof M]: Context.Tag.Identifier<
+            // @ts-expect-error "M[k] is not a Tag.."
+            M[k]
+          >;
+        },
+        E,
+        A
+      >
+    : never;
+};

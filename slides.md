@@ -41,4 +41,7 @@ The last comment block of each slide will be treated as slide notes. It will be 
 ---
 
 <<< @/snippets/step2.ts ts {63-69|71-74|58-61}{maxHeight:'80%'} twoslash
+---
+
+<<< @/snippets/step3.ts ts {13-16|24-28|32-34|44-48|53-56}{maxHeight:'80%'} twoslash
 
