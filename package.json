@@ -5,12 +5,14 @@
   "scripts": {
     "build": "slidev build",
     "dev": "slidev --open",
+    "dev:example": "slidev --open example.md -p 3031",
     "export": "slidev export"
   },
   "dependencies": {
     "@slidev/cli": "^0.49.0-beta.4",
     "@slidev/theme-default": "latest",
     "@slidev/theme-seriph": "latest",
+    "fp-ts": "^2.16.5",
     "vue": "^3.4.22"
   }
 }

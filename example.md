@@ -1,42 +1,26 @@
 ---
-
 # try also 'default' to start simple
-
 theme: seriph
-
 # random image from a curated Unsplash collection by Anthony
-
 # like them? see https://unsplash.com/collections/94734566/slidev
 background: https://cover.sli.dev
-
 # some information about your slides, markdown enabled
-
 title: Welcome to Slidev
 info: |
   ## Slidev Starter Template
   Presentation slides for developers.
 
   Learn more at [Sli.dev](https://sli.dev)
-
 # apply any unocss classes to the current slide
-
 class: text-center
-
 # https://sli.dev/custom/highlighters.html
-
 highlighter: shiki
-
 # https://sli.dev/guide/drawing
-
 drawings:
   persist: false
-
 # slide transition: https://sli.dev/guide/animations#slide-transitions
-
-# transition: slide-left
-
+transition: slide-left
 # enable MDC Syntax: https://sli.dev/guide/syntax#mdc-syntax
-
 mdc: true
 ---
 
@@ -46,23 +30,17 @@ Presentation slides for developers
 
 <div class="pt-12">
   <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
-
     Press Space for next page <carbon:arrow-right class="inline"/>
-
   </span>
 </div>
 
 <div class="abs-br m-6 flex gap-2">
   <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
-
     <carbon:edit />
-
   </button>
   <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub" title="Open in GitHub"
-
     class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
     <carbon-logo-github />
-
   </a>
 </div>
 
@@ -71,20 +49,20 @@ The last comment block of each slide will be treated as slide notes. It will be 
 -->
 
 ---
-
-## transition: fade-out
+transition: fade-out
+---
 
 # What is Slidev?
 
 Slidev is a slides maker and presenter designed for developers, consist of the following features
 
-* 📝 **Text-based** - focus on the content with Markdown, and then style them later
-* 🎨 **Themable** - theme can be shared and used with npm packages
-* 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-* 🤹 **Interactive** - embedding Vue components to enhance your expressions
-* 🎥 **Recording** - built-in recording and camera view
-* 📤 **Portable** - export into PDF, PNGs, or even a hostable SPA
-* 🛠 **Hackable** - anything possible on a webpage
+- 📝 **Text-based** - focus on the content with Markdown, and then style them later
+- 🎨 **Themable** - theme can be shared and used with npm packages
+- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
+- 🤹 **Interactive** - embedding Vue components to enhance your expressions
+- 🎥 **Recording** - built-in recording and camera view
+- 📤 **Portable** - export into PDF, PNGs, or even a hostable SPA
+- 🛠 **Hackable** - anything possible on a webpage
 
 <br>
 <br>
@@ -98,13 +76,13 @@ Learn more: https://sli.dev/guide/syntax#embedded-styles
 
 <style>
 h1 {
-  background-color: #2B90B6; 
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%); 
-  background-size: 100%; 
-  -webkit-background-clip: text; 
-  -moz-background-clip: text; 
-  -webkit-text-fill-color: transparent; 
-  -moz-text-fill-color: transparent; 
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
 }
 </style>
 
@@ -113,10 +91,8 @@ Here is another comment.
 -->
 
 ---
-
 transition: slide-up
 level: 2
-
 ---
 
 # Navigation
@@ -125,29 +101,25 @@ Hover on the bottom-left corner to see the navigation's controls panel, [learn m
 
 ## Keyboard Shortcuts
 
-|                                                    |                             |
-| -------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                | next animation or slide     |
-| <kbd>left</kbd> / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                      | previous slide              |
-| <kbd>down</kbd>                                    | next slide                  |
+|     |     |
+| --- | --- |
+| <kbd>right</kbd> / <kbd>space</kbd>| next animation or slide |
+| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
+| <kbd>up</kbd> | previous slide |
+| <kbd>down</kbd> | next slide |
 
 <!-- https://sli.dev/guide/animations.html#click-animations -->
-
 <img
   v-click
   class="absolute -bottom-9 -left-7 w-80 opacity-50"
   src="https://sli.dev/assets/arrow-bottom-left.svg"
   alt=""
 />
-
 <p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
 
 ---
-
 layout: two-cols
 layoutClass: gap-16
-
 ---
 
 # Table of contents
@@ -165,10 +137,8 @@ The title will be inferred from your slide content, or you can override it with 
 <Toc v-click minDepth="1" maxDepth="2"></Toc>
 
 ---
-
 layout: image-right
 image: https://cover.sli.dev
-
 ---
 
 # Code
@@ -180,23 +150,20 @@ Use code snippets and get the highlighting directly, and even types hover![^1]
 // and errors in markdown code blocks
 // More at https://shiki.style/packages/twoslash
 
-import { computed, ref } from "vue"; 
+import { computed, ref } from 'vue'
 
-const count = ref(0); 
-const doubled = computed(() => count.value * 2); 
+const count = ref(0)
+const doubled = computed(() => count.value * 2)
 
-doubled.value = 2; 
-
+doubled.value = 2
 ```
 
 <arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="334" color="#953" width="2" arrowSize="1" />
 
 <!-- This allow you to embed external code blocks -->
-
 <<< @/snippets/external.ts#snippet
 
 <!-- Footer -->
-
 [^1]: [Learn More](https://sli.dev/guide/syntax.html#line-highlighting)
 
 <!-- Inline style -->
@@ -223,8 +190,8 @@ Notes can also sync with clicks
 -->
 
 ---
-
-## level: 2
+level: 2
+---
 
 # Shiki Magic Move
 
@@ -236,34 +203,31 @@ Add multiple code blocks and wrap them with <code>````md magic-move</code> (four
 ```ts {*|2|*}
 // step 1
 const author = reactive({
-  name: "John Doe",
+  name: 'John Doe',
   books: [
-    "Vue 2 - Advanced Guide",
-    "Vue 3 - Basic Guide",
-    "Vue 4 - The Mystery",
-  ],
-});
+    'Vue 2 - Advanced Guide',
+    'Vue 3 - Basic Guide',
+    'Vue 4 - The Mystery'
+  ]
+})
 ```
 
-```ts {*|1-2|3-4|3-4, 8}
+```ts {*|1-2|3-4|3-4,8}
 // step 2
 export default {
   data() {
-
     return {
       author: {
-        name: "John Doe",
+        name: 'John Doe',
         books: [
-          "Vue 2 - Advanced Guide",
-          "Vue 3 - Basic Guide",
-          "Vue 4 - The Mystery",
-        ],
-      },
-    };
-
-  }, 
-}; 
-
+          'Vue 2 - Advanced Guide',
+          'Vue 3 - Basic Guide',
+          'Vue 4 - The Mystery'
+        ]
+      }
+    }
+  }
+}
 ```
 
 ```ts
@@ -271,15 +235,15 @@ export default {
 export default {
   data: () => ({
     author: {
-      name: "John Doe",
+      name: 'John Doe',
       books: [
-        "Vue 2 - Advanced Guide",
-        "Vue 3 - Basic Guide",
-        "Vue 4 - The Mystery",
-      ],
-    },
-  }),
-};
+        'Vue 2 - Advanced Guide',
+        'Vue 3 - Basic Guide',
+        'Vue 4 - The Mystery'
+      ]
+    }
+  })
+}
 ```
 
 Non-code blocks are ignored.
@@ -288,19 +252,16 @@ Non-code blocks are ignored.
 <!-- step 4 -->
 <script setup>
 const author = {
-  name: "John Doe",
+  name: 'John Doe',
   books: [
-    "Vue 2 - Advanced Guide",
-    "Vue 3 - Basic Guide",
-    "Vue 4 - The Mystery",
-  ],
-};
+    'Vue 2 - Advanced Guide',
+    'Vue 3 - Basic Guide',
+    'Vue 4 - The Mystery'
+  ]
+}
 </script>
 ```
-
-`
-
-```
+````
 
 ---
 
@@ -339,14 +300,14 @@ Presenter note with **bold**, *italic*, and ~~striked~~ text.
 
 Also, HTML elements are valid:
 <div class="flex w-full">
-  <span style="flex-grow: 1; ">Left content</span>
+  <span style="flex-grow: 1;">Left content</span>
   <span>Right content</span>
 </div>
 -->
 
 ---
-
-## class: px-20
+class: px-20
+---
 
 # Themes
 
@@ -419,14 +380,19 @@ also allows you to add
 Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
 
 ```html
-<div v-motion :initial="{ x: -80 }" :enter="{ x: 0 }" :click-3="{ x: 80 }" :leave="{ x: 1000 }">
-    Slidev
+<div
+  v-motion
+  :initial="{ x: -80 }"
+  :enter="{ x: 0 }"
+  :click-3="{ x: 80 }"
+  :leave="{ x: 1000 }"
+>
+  Slidev
 </div>
 ```
 
 <div class="w-60 relative">
   <div class="relative w-40 h-40">
-
     <img
       v-motion
       :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
@@ -451,34 +417,29 @@ Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), t
       src="https://sli.dev/logo-triangle.png"
       alt=""
     />
-
   </div>
 
   <div
-
     class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
     v-motion
     :initial="{ x: -80, opacity: 0}"
     :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
     Slidev
-
   </div>
 </div>
 
 <!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
 <script setup lang="ts">
 const final = {
-  x: 0, 
-  y: 0, 
-  rotate: 0, 
-  scale: 1, 
+  x: 0,
+  y: 0,
+  rotate: 0,
+  scale: 1,
   transition: {
-
     type: 'spring',
     damping: 10,
     stiffness: 20,
     mass: 2
-
   }
 }
 </script>
@@ -503,9 +464,7 @@ LaTeX is supported out-of-box powered by [KaTeX](https://katex.org/).
 Inline $\sqrt{3x-1}+(1+x)^2$
 
 Block
-
-$$
-{1|3|all}
+$$ {1|3|all}
 \begin{array}{c}
 
 \nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &
@@ -532,10 +491,8 @@ You can create diagrams / graphs from textual descriptions, directly in your Mar
 
 ```mermaid {scale: 0.5, alt: 'A simple sequence diagram'}
 sequenceDiagram
-
     Alice->John: Hello John, how are you?
     Note over Alice,John: A typical interaction
-
 ```
 
 ```mermaid {theme: 'neutral', scale: 0.8}
@@ -584,14 +541,10 @@ cloud {
 
 database "MySql" {
   folder "This is my folder" {
-
     [Folder 3]
-
   }
   frame "Foo" {
-
     [Frame 4]
-
   }
 }
 
@@ -600,7 +553,6 @@ database "MySql" {
 [Folder 3] --> [Frame 4]
 
 @enduml
-
 ```
 
 </div>
@@ -608,11 +560,9 @@ database "MySql" {
 [Learn More](https://sli.dev/guide/syntax.html#diagrams)
 
 ---
-
 foo: bar
 dragPos:
-square: 691,33,167,\_,-16
-
+  square: 691,33,167,_,-16
 ---
 
 # Draggable Elements
@@ -638,21 +588,17 @@ Double-click on the draggable elements to edit their positions.
 </v-drag>
 ```
 
-<v-drag pos="671, 205, 253, _, -15">
+<v-drag pos="671,205,253,_,-15">
   <div text-center text-3xl border border-main rounded>
-
     Double-click me!
-
   </div>
 </v-drag>
 
 <img v-drag="'square'" src="https://sli.dev/logo.png">
 
 ---
-
 src: ./pages/multiple-entries.md
 hide: false
-
 ---
 
 ---
@@ -664,34 +610,26 @@ Slidev provides built-in Monaco Editor support.
 Add `{monaco}` to the code block to turn it into an editor:
 
 ```ts {monaco}
-import { ref } from "vue"; 
-import { emptyArray } from "./external"; 
+import { ref } from 'vue'
+import { emptyArray } from './external'
 
-const arr = ref(emptyArray(10)); 
-
+const arr = ref(emptyArray(10))
 ```
 
 Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
 
 ```ts {monaco-run}
-import { version } from "vue";
-import { emptyArray, sayHello } from "./external";
+import { version } from 'vue'
+import { emptyArray, sayHello } from './external'
 
-sayHello();
-console.log(`vue ${version}`);
-console.log(
-  emptyArray<number>(10).reduce(
-    (fib) => [...fib, fib.at(-1)! + fib.at(-2)!],
-    [1, 1]
-  )
-);
+sayHello()
+console.log(`vue ${version}`)
+console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
 ```
 
 ---
-
 layout: center
 class: text-center
-
 ---
 
 # Learn More
