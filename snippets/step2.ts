@@ -9,7 +9,7 @@ class Foo {
   static make = () => new Foo("random-id");
 }
 
-// ports & adpaters
+// ports & adapters
 interface FooRepository {
   getById: (id: string) => RTE<unknown, Error, Foo>;
   store: (foo: Foo) => RTE<unknown, Error, void>;

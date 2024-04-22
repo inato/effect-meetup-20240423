@@ -9,7 +9,7 @@ class Foo {
   static make = () => new Foo("random-id");
 }
 
-// ports & adpaters
+// ports & adapters
 interface FooRepository {
   getById: (id: string) => Effect.Effect<Foo, Error>;
   store: (foo: Foo) => Effect.Effect<void, Error>;
