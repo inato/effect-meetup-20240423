@@ -1,5 +1,5 @@
 ---
-theme: seriph
+theme: default
 background: https://cdn.jsdelivr.net/gh/slidevjs/slidev-covers@main/static/aQcE3gDSSTY.webp
 title: effect meetup 20240423
 
