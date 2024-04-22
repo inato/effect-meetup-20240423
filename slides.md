@@ -36,17 +36,15 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 # Introduction
 
-- Introduced fp-ts in our codebase in 2020
+- Introduced fp-ts in our codebase in 2020 to leverage functional patterns
 - ReaderTaskEither -> pretty similar to Effect:
 
-```
+```ts
 ReaderTaskEither<R, E, A>
 = Reader<R, TaskEither<E, A>>
 = (context: R) => () => Promise<Either<E, A>>
 
 <=> Effect<A, E, R>
-
-Conceptually, you can think of Effect<Success, Error, Requirements> as an effectful version of the following function type:
 
 ~ type Effect<Success, Error, Requirements> = (
   context: Context<Requirements>
@@ -58,12 +56,18 @@ Effect is the description of a program, which is interpreted by the Effect runti
 <!-- Whereas RTE is already the program, you can only invoke it, 
 whereas with Effect you can do sthg else. -->
 
+---
+
+# The switch
 
 - Decided officially to switch to Effect in 2024
   - Maintenance will end
-  - Lack of documentation... (put screenshot of DR)
-  https://www.notion.so/inato/Simpler-functional-programming-using-Effect-9051e313563f496abc06b4c235016f91
+  - Better documentation... 
+  <!-- (put screenshot of DR?) https://www.notion.so/inato/Simpler-functional-programming-using-Effect-9051e313563f496abc06b4c235016f91 -->
   - Go have a look to the detailed comparison of fp-ts and Effect on the Effect website [here](https://effect.website/docs/other/fp-ts#comparison-table)
+
+<img src="/fptsEffectComparison.png" class="h-100 rounded shadow" />
+
 ---
 
 # Context
@@ -122,40 +126,17 @@ Use contextToFpts to extract services and use them like before
 
 # Some more helpers
 
-Other utils like utils.optionFromFpts, utils.optionTraverseEffect...
-(more generally, any helper to facilitate a smooth transition for the whole team)
+To facilitate a smooth transition for the whole team, we added some more helpers:
 
-```
-import { Either, Option } from 'effect';
-import { either, option } from 'fp-ts';
+<<< @/snippets/moreHelpers1.ts ts {maxHeight:'80%'} twoslash
 
-export const optionFromFpts: <A>(ma: option.Option<A>) => Option.Option<A> =
-  option.matchW(Option.none, Option.some);
-  
-export const eitherFromFpts: <A, E>(
-  e: either.Either<E, A>,
-) => Either.Either<A, E> = either.matchW(Either.left, Either.right);
-```
+---
 
-We were missing `option.traverse(rte.Applicative)(() => RTE)`, so we created ours:
-```
-import { Effect, Option } from 'effect';
-import { dual } from 'effect/Function';
+# Some more helpers
 
-export const optionTraverseEffect = dual<
-  <A, E, B, R>(
-    f: (x: A) => Effect.Effect<B, E, R>,
-  ) => (x: Option.Option<A>) => Effect.Effect<Option.Option<B>, E, R>,
-  <A, E, B, R>(
-    x: Option.Option<A>,
-    f: (x: A) => Effect.Effect<B, E, R>,
-  ) => Effect.Effect<Option.Option<B>, E, R>
->(2, (x, f) =>
-  Option.isSome(x)
-    ? Effect.map(f(x.value), Option.some)
-    : Effect.succeed(Option.none()),
-);
-```
+We were missing the fp-ts `option.traverse`, so we created ours:
+
+<<< @/snippets/moreHelpers2.ts ts {maxHeight:'80%'} twoslash
 
 ---
 
@@ -163,10 +144,10 @@ export const optionTraverseEffect = dual<
 
 - All ports migrated in around a month thanks to team work
 - All runners migrated too so we could start writing Effect-only code without worrying about an fp-ts compatible version
-- Today we alrady have 80ish new full Effect use cases
+- Today we already have 80ish new full Effect use cases
 
 ---
 
 # Bonus (if we have time)
 + some examples on how having migrated to Effect feels so much better (if we have time)
-	 -> (firstSuccessOf...)
+	 -> (firstSuccessOf?)
