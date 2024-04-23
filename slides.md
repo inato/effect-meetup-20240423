@@ -192,9 +192,48 @@ Use `contextToFpts` to extract ports for backward compatibility
 ---
 
 # Define fp-ts mappings
-`FptsConvertibel<T>` and `getFptsMapping` makes it easier to use other helpers
+`FptsConvertible<T>` and `getFptsMapping` makes it easier to use other helpers
 
 <<< @/snippets/step5.ts ts {102-105|107|111-114|118|122-135|139-142|158-161|173-176}{maxHeight:'80%'} twoslash
+---
+
+# Helpers recap
+The helpers we used during the migrations:
+
+- `FptsConvertible<T>`: defines a `fp-ts` "convertible" port
+- `getFptsMapping`: get the `fp-ts` "mapping" of a convertible port 
+- `contextToFpts`: extract ports from Effect context
+- `portToEffect`: creates an Effect proxy of an `fp-ts` port
+- `effectToFpts`: translates an Effect usecase to `fp-ts`
+- `portToFpts`: creates an `fp-ts` proxy of an Effect port
+- `optionFromFpts`: creates an Effect `Option` from `fp-ts`
+- `eitherFromFpts`: creates an Effect `Either` from `fp-ts`
+- `optionTraverseEffect`: Effect `Option` traversal
+
+---
+
+# Conclusion
+
+- Objective accomplished in 2 months! 
+
+<v-clicks>
+
+- All ports migrated in around a month thanks to team work
+- All runners migrated
+- Today: around 80 new full Effect use cases
+- We even got rid of fp-ts options in our domain
+
+</v-clicks>
+
+<!-- 
+Runners migrated => so we could start writing Effect-only code without worrying about an fp-ts compatible version
+ -->
+
+---
+
+# Thank you!
+
+Any questions?
 
 ---
 
@@ -243,31 +282,6 @@ To facilitate a smooth transition for the whole team, we added some more helpers
 We were missing the fp-ts `option.traverse`, so we created ours:
 
 <<< @/snippets/moreHelpers2.ts ts {maxHeight:'80%'} twoslash
-
----
-
-# Conclusion
-
-- Objective accomplished in 2 months! 
-
-<v-clicks>
-
-- All ports migrated in around a month thanks to team work
-- All runners migrated
-- Today: around 80 new full Effect use cases
-- We even got rid of fp-ts options in our domain
-
-</v-clicks>
-
-<!-- 
-Runners migrated => so we could start writing Effect-only code without worrying about an fp-ts compatible version
- -->
-
----
-
-# Thank you!
-
-Any questions?
 
 <!-- 
 
