@@ -120,33 +120,35 @@ layoutClass: gap-16
 
 
 # Example application
+Representative of our codebase
 
 <<< @/snippets/fpts.ts ts {all|5-9|11-26|28-40|42-55|57-66}{maxHeight:'80%'} twoslash
 
 ---
 
-# Create an Effect proxy using portToEffect
+# Create an Effect proxy
+Use `portToEffect` to act as a proxy between `fp-ts` and `Effect` implementations
 
 <<< @/snippets/step1.ts ts {22-25|27-31|43-45|47-53|60|65-67}{maxHeight:'80%'} twoslash
 
 ---
 
 # Rewrite a usecase in Effect
-Use effectToFpts to translate the usecase back to fp-ts (backward compatibility)
+Use `effectToFpts` to translate the usecase back to `fp-ts` for backward compatibility
 
 <<< @/snippets/step2.ts ts {63-67|69-72|58-61}{maxHeight:'80%'} twoslash
 
 ---
 
 # Convert ports to Effect
-Use portToFpts to create an fp-ts proxy of a port (backward compatibility)
+Use `portToFpts` to create an `fp-ts` proxy of a port for backward compatibility
 
 <<< @/snippets/step3.ts ts {13-16|24-28|32-34|44-48|53-56}{maxHeight:'80%'} twoslash
 
 ---
 
-# Run the Effect usecase like it's supposed to
-Use contextToFpts to extract services and use them like before
+# Run the usecase the Effect way
+Use `contextToFpts` to extract ports for backward compatibility
 
 <<< @/snippets/step4.ts ts {30|50|71-75|77-84|70-85}{maxHeight:'80%'} twoslash
 
