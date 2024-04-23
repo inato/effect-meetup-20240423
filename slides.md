@@ -37,8 +37,14 @@ The last comment block of each slide will be treated as slide notes. It will be 
 # Introduction
 
 - Inato is a global clinical trials marketplace disrupting traditional feasibility
-- Introduced fp-ts in our codebase in 2020 to embrace functional patterns
-- ReaderTaskEither -> pretty similar to Effect:
+
+<v-clicks>
+
+- Introduced fp-ts in our codebase in 2020
+
+</v-clicks>
+
+<v-clicks>
 
 ```ts
 ReaderTaskEither<R, E, A>
@@ -52,12 +58,16 @@ ReaderTaskEither<R, E, A>
 ) => Error | Success
 ```
 
-Effect is the description of a program, which is interpreted by the Effect runtime
+</v-clicks>
 
 <!-- 
 Helping sites get access to the right trials for them and their patients, Inato finds sites with untapped patient populations, high motivation, strong capabilities, and low competition
 
 Before using fp-ts we had our own Either implementation but we had nothing for Option for instance 
+
+Introduced fp-ts to embrace functional patterns
+
+Effect is the description of a program, which is interpreted by the Effect runtime
 
 Whereas RTE is already the program, you can only invoke it, whereas with Effect you can do sthg else. 
 -->
@@ -69,16 +79,25 @@ layoutClass: gap-16
 
 # The switch
 
+
 - Decided officially to switch from fp-ts to Effect in 2024
+
+  <v-clicks depth="2" >
+
   - Active development will end
   - Steep learning curve
   - Lack of documentation 
   - Many other points: [fp-ts vs Effect](https://effect.website/docs/other/fp-ts#comparison-table)
 
+  </v-clicks>
+
 ::right::
+
+<v-after>
 
 <img src="/fptsEffectComparison.png" class="h-120 rounded shadow" />
 
+</v-after>
 
 <!-- 
 (put screenshot of DR?) https://www.notion.so/inato/Simpler-functional-programming-using-Effect-9051e313563f496abc06b4c235016f91
@@ -88,18 +107,36 @@ layoutClass: gap-16
 
 # Context
 
-- Around 400 use cases and 80ish ports and their adapters to migrate
-- We needed a plan to ensure a smooth transition
-- Objective: in 2,5 months, any new use case, port/adapters will be written using Effect
+<div class="grid grid-cols-[1fr_35%] gap-4">
+<div>
+
+<img src="/codebase.png" class="h-100%">
+
+</div>
+<div>
+
+<v-clicks>
+
+- Around 400 use cases and 80 ports and their adapters to migrate
+- Plan needed to ensure a smooth transition
+
+- 🎯 Objective: in 2,5 months, any new use case, port/adapters will be written using Effect
+
+</v-clicks>
+
+</div>
+</div>
 
 ---
 
 # The plan
 
-<v-clicks every="1">
 
 1. Ensure our ports return ReaderTaskEither
-1. Create Effect proxies of our ports
+
+<v-clicks >
+
+2. Create Effect proxies of our ports
 1. Start (re)writing use cases in Effect
 1. Use a helper to generate an fp-ts version of any Effect use case to be able to run it
 1. Start (re)writing ports in Effect
@@ -259,13 +296,30 @@ We were missing the fp-ts `option.traverse`, so we created ours:
 
 # Conclusion
 
-- All ports migrated in around a month thanks to team work
-- All runners migrated too so we could start writing Effect-only code without worrying about an fp-ts compatible version
-- Today we already have 80ish new full Effect use cases
-- We even completely removed the use of fp-ts option from our domain
+- Objective accomplished in 2 months! 
 
+<v-clicks>
+
+- All ports migrated in around a month thanks to team work
+- All runners migrated
+- Today: around 80 new full Effect use cases
+- We even got rid of fp-ts options in our domain
+
+</v-clicks>
+
+<!-- 
+Runners migrated => so we could start writing Effect-only code without worrying about an fp-ts compatible version
+ -->
+
+---
+
+# Thank you!
+
+Any questions?
+
+<!-- 
 ---
 
 # Bonus (if we have time)
 + firstSuccessOf
-+ RateLimiting 
++ RateLimiting -->
