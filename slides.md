@@ -202,10 +202,7 @@ Use `contextToFpts` to extract ports for backward compatibility
 
 `contextToFpts`: extract ports from Effect context
 
-```ts
-const contextToFpts = (ctx, mapping) =>
-  Record.mapEntries(mapping, (_, tag) => Context.get(ctx, tag));
-```
+<<< @/snippets/helpersRecap.ts#contextToFpts ts {maxHeight:'80%'}
 
 ---
 
@@ -213,68 +210,23 @@ const contextToFpts = (ctx, mapping) =>
 
 `portToEffect`: creates an Effect proxy of an `fp-ts` port
 
-```ts
-const portToEffect = (port, mapping) =>
-  new Proxy(
-    {},
-    {
-      get(_target, property) {
-        return (...args) =>
-          pipe(
-            Effect.context(),
-            Effect.map((ctx) => {
-              const fptsEnv = contextToFpts(ctx, mapping);
-              return port[property](...args)(fptsEnv)();
-            })
-            Effect.flatMap(Effect.promise),
-            Effect.flatMap(eitherFromFpts),
-          );
-      },
-    }
-  );
-```
+<<< @/snippets/helpersRecap.ts#portToEffect ts {maxHeight:'80%'}
+
 ---
 
 # Helpers recap
 
 `effectToFpts`: translates an Effect usecase to `fp-ts`
 
-```ts
-const effectToFpts =
-  (fun, mapping) =>
-  (...args) =>
-  (access) => {
-    const effect = fun(...args);
-    let ctx = Context.empty();
-    for (const m in mapping) {
-      ctx = Context.add(mapping[m], access[m])(ctx);
-    }
-    return () =>
-      pipe(
-        effect, 
-        Effect.provide(ctx), 
-        Effect.either, 
-        Effect.runPromise
-      );
-  };
-```
+<<< @/snippets/helpersRecap.ts#effectToFpts ts {maxHeight:'80%'}
+
 ---
 
 # Helpers recap
 
 `portToFpts`: creates an `fp-ts` proxy of an Effect port
 
-```ts
-const portToFpts = (port, mapping) =>
-  new Proxy(
-    {},
-    {
-      get(_target, property) {
-        return effectToFpts(port[property], mapping);
-      },
-    }
-  );
-```
+<<< @/snippets/helpersRecap.ts#portToFpts ts {maxHeight:'80%'}
 
 ---
 
