@@ -256,8 +256,8 @@ The helpers we used during the migrations:
 
 - All ports migrated in around a month thanks to team work
 - All runners migrated
-- Today: around 80 new full Effect use cases
 - We even got rid of fp-ts options in our domain
+- Today: around 80 new full Effect use cases
 
 </v-clicks>
 
