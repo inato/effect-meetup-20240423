@@ -270,7 +270,6 @@ Runners migrated => so we could start writing Effect-only code without worrying 
 Any questions?
 
 <!-- 
----
 
 # Bonus (if we have time)
 + firstSuccessOf
