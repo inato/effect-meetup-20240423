@@ -36,6 +36,7 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 # Introduction
 
+- Inato is a global clinical trials marketplace disrupting traditional feasibility
 - Introduced fp-ts in our codebase in 2020 to embrace functional patterns
 - ReaderTaskEither -> pretty similar to Effect:
 
@@ -54,6 +55,8 @@ ReaderTaskEither<R, E, A>
 Effect is the description of a program, which is interpreted by the Effect runtime
 
 <!-- 
+Helping sites get access to the right trials for them and their patients, Inato finds sites with untapped patient populations, high motivation, strong capabilities, and low competition
+
 Before using fp-ts we had our own Either implementation but we had nothing for Option for instance 
 
 Whereas RTE is already the program, you can only invoke it, whereas with Effect you can do sthg else. 
@@ -66,16 +69,20 @@ layoutClass: gap-16
 
 # The switch
 
-- Decided officially to switch to Effect in 2024
-  - Maintenance will end (?)
+- Decided officially to switch from fp-ts to Effect in 2024
+  - Active development will end
   - Steep learning curve
-  - Better documentation...
-  <!-- (put screenshot of DR?) https://www.notion.so/inato/Simpler-functional-programming-using-Effect-9051e313563f496abc06b4c235016f91 -->
+  - Lack of documentation 
   - Many other points: [fp-ts vs Effect](https://effect.website/docs/other/fp-ts#comparison-table)
 
 ::right::
 
 <img src="/fptsEffectComparison.png" class="h-120 rounded shadow" />
+
+
+<!-- 
+(put screenshot of DR?) https://www.notion.so/inato/Simpler-functional-programming-using-Effect-9051e313563f496abc06b4c235016f91
+-->
 
 ---
 
@@ -89,20 +96,24 @@ layoutClass: gap-16
 
 # The plan
 
+<v-clicks every="1">
+
 1. Ensure our ports return ReaderTaskEither
-2. Create Effect proxies of our ports
-3. Start (re)writing use cases in Effect
-4. Use a helper to generate an fp-ts version of any Effect use case to be able to run it
-5. Start (re)writing ports in Effect
-6. Use a helper to generate an fp-ts proxy of an Effect port
-7. (Effect way) Run the Effect use cases like they're supposed to but still be able to run fp-ts use cases
+1. Create Effect proxies of our ports
+1. Start (re)writing use cases in Effect
+1. Use a helper to generate an fp-ts version of any Effect use case to be able to run it
+1. Start (re)writing ports in Effect
+1. Use a helper to generate an fp-ts proxy of an Effect port
+1. Be able to run Effect and fp-ts use cases
+
+</v-clicks>
 
 <!-- 
-1. To be able to easily switch to Effect 
+1-To be able to easily switch to Effect 
 
-4. Because our runners are not able to run Effect use cases yet at that point
+4-Because our runners are not able to run Effect use cases yet at that point
 
-6. At that point, the objective is completed: we can write everything in Effect, and still generate fp-ts facades. But that's not satisfying right?
+6-At that point, the objective is completed: we can write everything in Effect, and still generate fp-ts facades. But that's not satisfying right?
  -->
 
 ---
@@ -167,5 +178,5 @@ We were missing the fp-ts `option.traverse`, so we created ours:
 ---
 
 # Bonus (if we have time)
-+ some examples on how having migrated to Effect feels so much better (if we have time)
-	 -> (firstSuccessOf?)
++ firstSuccessOf
++ RateLimiting 
