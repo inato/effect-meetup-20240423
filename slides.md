@@ -36,7 +36,7 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 # Introduction
 
-- Introduced fp-ts in our codebase in 2020 to leverage functional patterns
+- Introduced fp-ts in our codebase in 2020 to embrace functional patterns
 - ReaderTaskEither -> pretty similar to Effect:
 
 ```ts
@@ -53,20 +53,29 @@ ReaderTaskEither<R, E, A>
 
 Effect is the description of a program, which is interpreted by the Effect runtime
 
-<!-- Whereas RTE is already the program, you can only invoke it, 
-whereas with Effect you can do sthg else. -->
+<!-- 
+Before using fp-ts we had our own Either implementation but we had nothing for Option for instance 
 
+Whereas RTE is already the program, you can only invoke it, whereas with Effect you can do sthg else. 
+-->
+
+---
+layout: two-cols
+layoutClass: gap-16
 ---
 
 # The switch
 
 - Decided officially to switch to Effect in 2024
-  - Maintenance will end
-  - Better documentation... 
+  - Maintenance will end (?)
+  - Steep learning curve
+  - Better documentation...
   <!-- (put screenshot of DR?) https://www.notion.so/inato/Simpler-functional-programming-using-Effect-9051e313563f496abc06b4c235016f91 -->
-  - Go have a look to the detailed comparison of fp-ts and Effect on the Effect website [here](https://effect.website/docs/other/fp-ts#comparison-table)
+  - Many other points: [fp-ts vs Effect](https://effect.website/docs/other/fp-ts#comparison-table)
 
-<img src="/fptsEffectComparison.png" class="h-100 rounded shadow" />
+::right::
+
+<img src="/fptsEffectComparison.png" class="h-120 rounded shadow" />
 
 ---
 
@@ -87,6 +96,14 @@ whereas with Effect you can do sthg else. -->
 5. Start (re)writing ports in Effect
 6. Use a helper to generate an fp-ts proxy of an Effect port
 7. (Effect way) Run the Effect use cases like they're supposed to but still be able to run fp-ts use cases
+
+<!-- 
+1. To be able to easily switch to Effect 
+
+4. Because our runners are not able to run Effect use cases yet at that point
+
+6. At that point, the objective is completed: we can write everything in Effect, and still generate fp-ts facades. But that's not satisfying right?
+ -->
 
 ---
 
@@ -145,6 +162,7 @@ We were missing the fp-ts `option.traverse`, so we created ours:
 - All ports migrated in around a month thanks to team work
 - All runners migrated too so we could start writing Effect-only code without worrying about an fp-ts compatible version
 - Today we already have 80ish new full Effect use cases
+- We even completely removed the use of fp-ts option from our domain
 
 ---
 
