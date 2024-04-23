@@ -154,6 +154,13 @@ Use `contextToFpts` to extract ports for backward compatibility
 
 ---
 
+# Define fp-ts mappings
+`FptsConvertibel<T>` and `getFptsMapping` makes it easier to use other helpers
+
+<<< @/snippets/step5.ts ts {102-105|107|111-114|118|122-135|139-142|158-161|173-176}{maxHeight:'80%'} twoslash
+
+---
+
 # Some more helpers
 
 To facilitate a smooth transition for the whole team, we added some more helpers:

@@ -156,8 +156,8 @@ export const transformFooUseCase = (id: string) =>
   );
 
 export const transformFooUseCaseFpts = effectToFpts(transformFooUseCase, {
-  fooRepository: FooRepositoryTag,
-  transformFooService: TransformFooServiceTag,
+  ...TransformFooServiceFptsMapping,
+  ...FooRepositoryFptsMapping,
 });
 
 // program
