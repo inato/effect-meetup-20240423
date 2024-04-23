@@ -51,21 +51,19 @@ ReaderTaskEither<R, E, A>
 = Reader<R, TaskEither<E, A>>
 = (context: R) => () => Promise<Either<E, A>>
 
-<=> Effect<A, E, R>
-
-~ type Effect<Success, Error, Requirements> = (
-  context: Context<Requirements>
-) => Error | Success
+<=> Effect<A, E, R> ~ (context: Context<R>) => E | A
 ```
 
 </v-clicks>
 
 <!-- 
-Helping sites get access to the right trials for them and their patients, Inato finds sites with untapped patient populations, high motivation, strong capabilities, and low competition
 
-Before using fp-ts we had our own Either implementation but we had nothing for Option for instance 
+Chez Inato, on construit une marketplace qui met en relation des groupes pharmaceutiques qui cherchent a recruter des patients pour leur essais cliniques et des hopitaux.
 
 Introduced fp-ts to embrace functional patterns
+
+Demander: "Qui ici a deja utilise fp-ts?" 
+2nd question: "qui a deja utilise un ReaderTaskEither"
 
 Effect is the description of a program, which is interpreted by the Effect runtime
 
@@ -134,24 +132,62 @@ layoutClass: gap-16
 
 1. Ensure our ports return ReaderTaskEither
 
-<v-clicks >
+
+<img src="/planStep1.png" class="mt-4 h-80%" />
+
+<!--
+To be able to easily switch to Effect 
+-->
+
+---
+
+# The plan
+
 
 2. Create Effect proxies of our ports
-1. Start (re)writing use cases in Effect
-1. Use a helper to generate an fp-ts version of any Effect use case to be able to run it
-1. Start (re)writing ports in Effect
-1. Use a helper to generate an fp-ts proxy of an Effect port
-1. Be able to run Effect and fp-ts use cases
 
-</v-clicks>
+<img src="/step1To2.png" class="mt-4 h-80%" />
 
-<!-- 
-1-To be able to easily switch to Effect 
 
-4-Because our runners are not able to run Effect use cases yet at that point
+---
 
-6-At that point, the objective is completed: we can write everything in Effect, and still generate fp-ts facades. But that's not satisfying right?
- -->
+# The plan
+
+3. Start (re)writing use cases in Effect
+4. Create fp-ts proxies of Effect use cases
+
+<img src="/step2To3.png" class="mt-4 h-80%" />
+
+
+<!--
+
+<!--
+Because our runners are not able to run Effect use cases yet at that point
+
+At that point, the objective is completed: we can write everything in Effect, and still generate fp-ts facades. But that's not satisfying right?
+-->
+
+---
+
+# The plan
+
+5. Start (re)writing ports in Effect
+6. Create fp-ts proxy of an Effect port
+
+<img src="/step3To4.png" class="mt-4 h-80%" />
+
+
+<!--
+At that point, the objective is completed: we can write everything in Effect, and still generate fp-ts facades. But that's not satisfying right?
+-->
+
+---
+
+# The plan
+
+7. Be able to run Effect and fp-ts use cases
+
+<img src="/step4To5.png" class="mt-4 h-80%" />
 
 ---
 
