@@ -172,7 +172,7 @@ At that point, the objective is completed: we can write everything in Effect, an
 # The plan
 
 5. Start (re)writing ports in Effect
-6. Create fp-ts proxy of an Effect port
+6. Create fp-ts proxies of Effect ports
 
 <img src="/step3To4.png" class="mt-4 h-80%" />
 
