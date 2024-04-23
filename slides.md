@@ -159,7 +159,7 @@ layoutClass: gap-16
 # Example application
 Representative of our codebase
 
-<<< @/snippets/fpts.ts ts {all|5-9|11-26|28-40|42-55|57-66}{maxHeight:'80%'} twoslash
+<<< @/snippets/fpts.ts ts {all|5-9|11-26|28-40|42-54|55-64}{maxHeight:'80%'} twoslash
 
 ---
 
