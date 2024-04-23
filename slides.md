@@ -127,7 +127,7 @@ Representative of our codebase
 ---
 
 # Create an Effect proxy
-Use `portToEffect` to act as a proxy between `fp-ts` and `Effect` implementations
+Use `portToEffect` to create an Effect proxy of an `fp-ts` port
 
 <<< @/snippets/step1.ts ts {22-25|27-31|43-45|47-53|60|65-67}{maxHeight:'80%'} twoslash
 
@@ -141,7 +141,7 @@ Use `effectToFpts` to translate the usecase back to `fp-ts` for backward compati
 ---
 
 # Convert ports to Effect
-Use `portToFpts` to create an `fp-ts` proxy of a port for backward compatibility
+Use `portToFpts` to create an `fp-ts` proxy of an Effect port for backward compatibility
 
 <<< @/snippets/step3.ts ts {13-16|24-28|32-34|44-48|53-56}{maxHeight:'80%'} twoslash
 
@@ -158,6 +158,86 @@ Use `contextToFpts` to extract ports for backward compatibility
 `FptsConvertibel<T>` and `getFptsMapping` makes it easier to use other helpers
 
 <<< @/snippets/step5.ts ts {102-105|107|111-114|118|122-135|139-142|158-161|173-176}{maxHeight:'80%'} twoslash
+
+---
+
+# Helpers recap
+
+`contextToFpts`: extract ports from Effect context
+
+```ts
+const contextToFpts = (ctx, mapping) =>
+  Record.mapEntries(mapping, (_, tag) => Context.get(ctx, tag));
+```
+
+---
+
+# Helpers recap
+
+`portToEffect`: creates an Effect proxy of an `fp-ts` port
+
+```ts
+const portToEffect = (port, mapping) =>
+  new Proxy(
+    {},
+    {
+      get(_target, property) {
+        return (...args) =>
+          pipe(
+            Effect.context(),
+            Effect.map((ctx) => {
+              const fptsEnv = contextToFpts(ctx, mapping);
+              return port[property](...args)(fptsEnv)();
+            })
+            Effect.flatMap(Effect.promise),
+            Effect.flatMap(eitherFromFpts),
+          );
+      },
+    }
+  );
+```
+---
+
+# Helpers recap
+
+`effectToFpts`: translates an Effect usecase to `fp-ts`
+
+```ts
+const effectToFpts =
+  (fun, mapping) =>
+  (...args) =>
+  (access) => {
+    const effect = fun(...args);
+    let ctx = Context.empty();
+    for (const m in mapping) {
+      ctx = Context.add(mapping[m], access[m])(ctx);
+    }
+    return () =>
+      pipe(
+        effect, 
+        Effect.provide(ctx), 
+        Effect.either, 
+        Effect.runPromise
+      );
+  };
+```
+---
+
+# Helpers recap
+
+`portToFpts`: creates an `fp-ts` proxy of an Effect port
+
+```ts
+const portToFpts = (port, mapping) =>
+  new Proxy(
+    {},
+    {
+      get(_target, property) {
+        return effectToFpts(port[property], mapping);
+      },
+    }
+  );
+```
 
 ---
 
