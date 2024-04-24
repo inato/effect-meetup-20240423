@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "slidev build",
+    "build": "slidev build --base /effect-meetup-20240423/",
     "dev": "slidev --open",
     "dev:example": "slidev --open example.md -p 3031",
     "export": "slidev export"
